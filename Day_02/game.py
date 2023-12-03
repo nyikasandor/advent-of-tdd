@@ -32,6 +32,8 @@ def sum_of_possible_game_ids(lines, inventory):
             sum += id
     return sum
 
+# === Part 2
+
 
 def power_of_set(turns):
     cubes = {'red': 0, 'green': 0, 'blue': 0}
