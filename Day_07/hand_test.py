@@ -76,6 +76,18 @@ class Test_hand(unittest.TestCase):
         hand = Hand('J2J66 1')
         self.assertEqual(hand.joker_power, 5)
 
+    def test_can_detect_five_joker_only(self):
+        hand = Hand('JJJJJ 1')
+        self.assertEqual(hand.joker_power, 6)
+
+    def test_can_detect_drill_one_joker(self):
+        hand = Hand('A33J8 1')
+        self.assertEqual(hand.joker_power, 3)
+
+    def test_can_detect_full_house_joker(self):
+        hand = Hand('TJ99T 1')
+        self.assertEqual(hand.joker_power, 4)
+
     def test_can_detect_five_joker(self):
         hand = Hand('J2J2J 1')
         self.assertEqual(hand.joker_power, 6)
@@ -111,7 +123,7 @@ class Test_hand(unittest.TestCase):
         with open(input_path) as f:
             lines = f.read().splitlines()
         hands = [Hand(line) for line in lines]
-        self.assertEqual(Hand.calculate_joker_winnings(hands), -1)
+        self.assertEqual(Hand.calculate_joker_winnings(hands), 245461700)
 
 
 if __name__ == '__main__':

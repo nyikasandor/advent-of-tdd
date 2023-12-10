@@ -44,8 +44,14 @@ class Hand:
         if self.power < 4 and joker_count + self.power > 3:
             # skip full house score
             joker_gain += 1
-        if joker_count > 2 and self.power != 4:
+        if joker_count > 2 and self.power < 4:
             return 5
+        if joker_count == 1 and self.power == 1:
+            # skip two pair
+            return 3
+        if joker_count == 1 and self.power == 2:
+            # full house with joker
+            return 4
         return min(self.power + joker_gain, 6)
 
     def calculate_type(self):
@@ -89,13 +95,11 @@ class Hand:
     @classmethod
     def calculate_winnings(cls, hands):
         Hand.sort_hands(hands)
-        # [print(hand) for rank, hand in enumerate(hands, 1)]
         return sum(rank * hand.bid
                    for rank, hand in enumerate(hands, 1))
 
     @classmethod
     def calculate_joker_winnings(cls, hands):
         Hand.sort_joker_hands(hands)
-        [print(hand) for rank, hand in enumerate(hands, 1)]
         return sum(rank * hand.bid
                    for rank, hand in enumerate(hands, 1))
